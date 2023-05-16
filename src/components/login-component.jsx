@@ -1,3 +1,6 @@
+import '../App.css';
+import googleIcon from '../assets/images/google.png'
+
 const LoginComponent = ()=>{
     return(
         <div className="login-component">
@@ -8,13 +11,15 @@ const LoginComponent = ()=>{
                 <div className="main">
                     <input className="user-id" type="text" placeholder="Phone number, username, or email"/>
                     <input className="user-pass" type="password" placeholder="Password"/>
-                    <button>Log in</button>
+                    <button className='login-button'>Log in</button>
                     <div className="divider">
-                        <div className="divider-left"></div>
+                        <hr className="divider-left"/>
                         <div>or</div>
-                        <div className="divider-right"></div>
+                        <hr className="divider-right"/>
                     </div>
-                    <p>Log in with Google</p>
+                    <div className='google-login'>
+                        <button><img src={googleIcon} alt="google icon"/>Log in with google</button>
+                    </div>
                 </div>
             </div>
             <div className="signup-section">

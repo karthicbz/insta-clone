@@ -1,7 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
 *{
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+html, body{
+  height: 100%;
 }
 
 :root{
@@ -11,4 +17,132 @@
   sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --cursive-font: 'Pacifico', cursive;
+}
+
+.login-page{
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  align-items: center;
+}
+
+.loginpage-main{
+  display: flex;
+  /* align-items: center; */
+}
+
+.login-main>.main{
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.login-main{
+  border: 1px solid rgb(223, 221, 221);
+  padding: 0 2.5rem;
+  /* margin-bottom: auto; */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-main>.header{
+  height: 150px;
+  display: flex;
+  align-items: center;
+  align-items: center;
+}
+
+.login-main>.header>p{
+  font-size: 3rem;
+  width: 100%;
+  font-family: var(--cursive-font);
+}
+
+.login-main>.main>.user-id, .login-main>.main>.user-pass, .login-main>.main>.login-button{
+  width: 280px;
+  height: 2rem;
+  padding-left: 4px;
+}
+
+.login-main>.main>.login-button{
+  background-color: var(--button-color);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 700;
+  /* font-size: 1rem; */
+  margin-top: 0.6rem;
+}
+
+.login-main>.main>.login-button:hover{
+  cursor: pointer;
+}
+
+.login-component{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.divider-left, .divider-right{
+  border-top: 1px solid rgb(181, 180, 180);
+  width: 100px;
+  height: 1px;
+  /* background-color: black; */
+}
+
+.divider{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+
+.google-login{
+  margin-bottom: 2rem;
+}
+
+.google-login>button{
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: none;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.google-login>button>img{
+  margin-right: 3px;
+}
+
+.google-login>button:hover{
+  cursor: pointer;
+}
+
+.signup-section{
+  padding: 2rem;
+  border: 1px solid rgb(223, 221, 221);
+}
+
+.signup-section>p{
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.signup-section>p>button{
+  border: none;
+  background-color: white;
+  font-weight: 700;
+  color: var(--button-color);
+}
+
+.signup-section>p>button{
+  cursor: pointer;
 }
