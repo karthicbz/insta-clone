@@ -1,4 +1,5 @@
 import homePhones from '../assets/images/home-phones.png';
+import LoginComponent from './login-component';
 
 const LoginPage = ()=>{
     return(<div>
@@ -8,7 +9,7 @@ const LoginPage = ()=>{
                 <img src={homePhones} alt='iphone and android'/>
             </div>
             <div className='login-section'>
-                
+                <LoginComponent />
             </div>
         </div>
         <div className="loginpage-footer"></div>
