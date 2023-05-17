@@ -80,6 +80,12 @@ const SignupPage = ()=>{
         font-weight: 400;
     `
 
+    const SignupForm = styled.form`
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    `;
+
     return(
     <Wrapper className="signup-page">
         <WrapperChild>
@@ -92,11 +98,13 @@ const SignupPage = ()=>{
                     <div>or</div>
                     <Line className="divider-right"/>
                 </div>
-                <UserInput type="email" placeholder="Email"></UserInput>
-                <UserInput placeholder="Full name"></UserInput>
-                <UserInput placeholder="Username"></UserInput>
-                <UserInput type="password" placeholder="Password"></UserInput>
-                <ColorButton>Sign up</ColorButton>
+                <SignupForm>
+                    <UserInput type="email" placeholder="Email" required></UserInput>
+                    <UserInput placeholder="Full name" required></UserInput>
+                    <UserInput placeholder="Username" required></UserInput>
+                    <UserInput type="password" placeholder="Password" required></UserInput>
+                    <ColorButton>Sign up</ColorButton>
+                </SignupForm>
             </WrapperSignup>
         </WrapperChild>
         <WrapperChild>
