@@ -12,6 +12,7 @@ html, body{
 
 :root{
   --button-color: rgb(67, 167, 67);
+  --disabled-button-color: rgb(121, 169, 121);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
   'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
   sans-serif;
@@ -62,7 +63,7 @@ html, body{
 
 .login-main>.main>.user-id, .login-main>.main>.user-pass, .login-main>.main>.login-button{
   width: 280px;
-  height: 2rem;
+  height: 2.3rem;
   padding-left: 4px;
 }
 
@@ -74,6 +75,10 @@ html, body{
   font-weight: 700;
   /* font-size: 1rem; */
   margin-top: 0.6rem;
+}
+
+.login-button-disabled{
+  background-color: var(--disabled-button-color);
 }
 
 .login-main>.main>.login-button:hover{
