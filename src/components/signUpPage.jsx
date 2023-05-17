@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useState, useEffect } from "react";
 
 const SignupPage = ()=>{
 
@@ -72,6 +73,7 @@ const SignupPage = ()=>{
         font-size: 1.1rem;
         color: gray;
         font-weight: 600;
+        width: 270px;
     `;
 
     const SignupPara = styled(Para)`
@@ -86,6 +88,23 @@ const SignupPage = ()=>{
         gap: 8px;
     `;
 
+
+    const [email, setEmail] = useState('');
+    const [userName, setUserName] = useState('');
+    const [fullName, setFullName] = useState('');
+    const [password, setPassword] = useState('');
+    
+    useEffect(()=>{
+        const signupButton = document.querySelector('.signup-button');
+        if(email.length <=0 || userName.length <= 0 || fullName.length <= 0 || password.length <= 0){
+            signupButton.setAttribute('style', 'background-color:rgb(121, 169, 121);');
+            signupButton.disabled = true;
+        }else{
+            signupButton.removeAttribute('style');
+            signupButton.disabled = false;
+        }
+    })
+
     return(
     <Wrapper className="signup-page">
         <WrapperChild>
@@ -99,11 +118,11 @@ const SignupPage = ()=>{
                     <Line className="divider-right"/>
                 </div>
                 <SignupForm>
-                    <UserInput type="email" placeholder="Email" required></UserInput>
-                    <UserInput placeholder="Full name" required></UserInput>
-                    <UserInput placeholder="Username" required></UserInput>
-                    <UserInput type="password" placeholder="Password" required></UserInput>
-                    <ColorButton>Sign up</ColorButton>
+                    <UserInput type="email" placeholder="Email" value={email} required></UserInput>
+                    <UserInput placeholder="Full name" value={fullName} required></UserInput>
+                    <UserInput placeholder="Username" value={userName} required></UserInput>
+                    <UserInput type="password" value={password} placeholder="Password" required></UserInput>
+                    <ColorButton className="signup-button">Sign up</ColorButton>
                 </SignupForm>
             </WrapperSignup>
         </WrapperChild>
