@@ -92,10 +92,10 @@ const SignupPage = ()=>{
                     <div>or</div>
                     <Line className="divider-right"/>
                 </div>
-                <UserInput placeholder="Email"></UserInput>
+                <UserInput type="email" placeholder="Email"></UserInput>
                 <UserInput placeholder="Full name"></UserInput>
                 <UserInput placeholder="Username"></UserInput>
-                <UserInput placeholder="Password"></UserInput>
+                <UserInput type="password" placeholder="Password"></UserInput>
                 <ColorButton>Sign up</ColorButton>
             </WrapperSignup>
         </WrapperChild>
