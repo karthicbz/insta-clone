@@ -141,13 +141,13 @@ html, body{
   font-weight: 400;
 }
 
-.signup-section>p>button{
+.signup-section>p>a>button{
   border: none;
   background-color: white;
   font-weight: 700;
   color: var(--button-color);
 }
 
-.signup-section>p>button{
+.signup-section>p>a>button{
   cursor: pointer;
 }

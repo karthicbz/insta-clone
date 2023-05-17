@@ -1,6 +1,7 @@
 import '../App.css';
 import googleIcon from '../assets/images/google.png'
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const LoginComponent = ()=>{
     const [userId, setUserId] = useState('');
@@ -53,7 +54,7 @@ const LoginComponent = ()=>{
                 </div>
             </div>
             <div className="signup-section">
-                    <p>Don't have an account? <button>Sign up</button></p>
+                    <p>Don't have an account? <Link to={'/signup'}><button>Sign up</button></Link></p>
             </div>
         </div>
     )
