@@ -1,10 +1,11 @@
 import '../App.css';
 import googleIcon from '../assets/images/google.png'
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import checkCredentials from '../scripts/checkCredentials';
 
 const LoginComponent = ()=>{
+    const navigate = useNavigate();
     const [userId, setUserId] = useState('');
     const [password, setPassword] = useState('');
 
@@ -31,8 +32,16 @@ const LoginComponent = ()=>{
     }, [password, userId])
 
     const checkValidUser = async ()=>{
+        const loginError = document.querySelector('.login-err');
         const checkedCredentials = await checkCredentials(userId, password);
-        console.log(checkedCredentials);
+        // console.log(checkedCredentials);
+        if(checkedCredentials.userId === false){
+            loginError.textContent = 'UserName/Email not found';
+        }else if(checkedCredentials.password === false){
+            loginError.textContent = 'Incorrect password';
+        }else{
+            navigate(`/${checkedCredentials.userRef}`);
+        }
     }
 
 
