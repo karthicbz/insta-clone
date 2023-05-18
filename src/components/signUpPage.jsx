@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
+import saveUserCredentials from "../scripts/saveCredentials";
 
 const ColorButton = styled.button`
         background-color: rgb(67, 167, 67);
@@ -19,7 +20,7 @@ const ColorButton = styled.button`
 const UserInput = styled.input`
     width: 280px;
     height: 2.3rem;
-    padding-left: 3px;
+    padding-left: 5px;
     border: 1px solid rgb(223, 221, 221);;
 `;
 
@@ -116,25 +117,35 @@ const SignupPage = ()=>{
 
     useEffect(()=>{
         const signupButton = document.querySelector('.signup-button');
-        const fullNameError = document.querySelector('.fullName-error')
+        const error = document.querySelector('.error')
         if(email.length <=0 || userName.length <= 5 || fullName.length <= 5 || password.length <= 7){
             signupButton.setAttribute('style', 'background-color:rgb(121, 169, 121);');
             signupButton.disabled = true;
-            fullNameError.textContent = "Full Name & Username must be 6\r\n characters long\r\n";
-            fullNameError.textContent += 'Password must be 8 characters long';
+            error.textContent = "Full Name & Username must be 6\r\n characters long\r\n";
+            error.textContent += 'Password must be 8 characters long';
         }else{
             signupButton.removeAttribute('style');
             signupButton.disabled = false;
-            fullNameError.textContent = '';
+            error.textContent = '';
         }
     }, [email, userName, fullName, password])
 
     useEffect(()=>{
-        const fullNameError = document.querySelector('.fullName-error');
+        const error = document.querySelector('.error');
         if(email.length === 0 && userName.length === 0 && fullName.length === 0 && password.length === 0){
-            fullNameError.textContent = '';
+            error.textContent = '';
         }
     }, [email, userName, fullName, password])
+
+    function saveCredentials(e){
+        e.preventDefault();
+        const email = document.querySelector('.email');
+        const fullName = document.querySelector('.fullname');
+        const userName = document.querySelector('.username');
+        const password = document.querySelector('.password');
+
+        saveUserCredentials(email.value, fullName.value, userName.value, password.value);
+    }
 
     return(
     <Wrapper className="signup-page">
@@ -149,12 +160,12 @@ const SignupPage = ()=>{
                     <Line className="divider-right"/>
                 </div>
                 <SignupForm>
-                    <UserInput type="email" placeholder="Email" value={email} onChange={handleEmail} required></UserInput>
-                    <UserInput placeholder="Full Name" value={fullName} onChange={handleFullname} required></UserInput>
-                    <UserInput placeholder="Username" value={userName} onChange={handleUsername} required></UserInput>
-                    <UserInput type="password" value={password} onChange={handlePassword} placeholder="Password" required></UserInput>
-                    <ErrorText className="fullName-error"></ErrorText>
-                    <ColorButton className="signup-button">Sign up</ColorButton>
+                    <UserInput className="email" type="email" placeholder="Email" value={email} onChange={handleEmail} required></UserInput>
+                    <UserInput className="fullname" placeholder="Full Name" value={fullName} onChange={handleFullname} required></UserInput>
+                    <UserInput className="username" placeholder="Username" value={userName} onChange={handleUsername} required></UserInput>
+                    <UserInput className="password" type="password" value={password} onChange={handlePassword} placeholder="Password" required></UserInput>
+                    <ErrorText className="error"></ErrorText>
+                    <ColorButton className="signup-button" onClick={saveCredentials}>Sign up</ColorButton>
                 </SignupForm>
             </WrapperSignup>
         </WrapperChild>
