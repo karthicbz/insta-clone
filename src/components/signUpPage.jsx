@@ -140,10 +140,10 @@ const SignupPage = ()=>{
 
     async function saveCredentials(e){
         e.preventDefault();
-        const email = document.querySelector('.email');
-        const fullName = document.querySelector('.fullname');
-        const userName = document.querySelector('.username');
-        const password = document.querySelector('.password');
+        // const email = document.querySelector('.email');
+        // const fullName = document.querySelector('.fullname');
+        // const userName = document.querySelector('.username');
+        // const password = document.querySelector('.password');
         const error = document.querySelector('.error');
 
         // if(checkCredentials(userName.value, email.value)){
@@ -153,7 +153,7 @@ const SignupPage = ()=>{
         //     saveUserCredentials(email.value, fullName.value, userName.value, password.value);
         // }
         error.textContent = '';
-        const checkedCredentials = await checkCredentials(userName.value, email.value);
+        const checkedCredentials = await checkCredentials(userName, email);
         // console.log(checkedCredentials);
         if(checkedCredentials.username === true){
             error.textContent = 'username already present';
@@ -161,7 +161,7 @@ const SignupPage = ()=>{
             error.textContent = 'email already present';
         }else{
             error.textContent = '';
-            saveUserCredentials(email.value, fullName.value, userName.value, password.value);
+            saveUserCredentials(email, fullName, userName, password);
         }
     }
 

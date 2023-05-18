@@ -2,6 +2,7 @@ import '../App.css';
 import googleIcon from '../assets/images/google.png'
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import checkCredentials from '../scripts/checkCredentials';
 
 const LoginComponent = ()=>{
     const [userId, setUserId] = useState('');
@@ -29,6 +30,11 @@ const LoginComponent = ()=>{
         }
     }, [password, userId])
 
+    const checkValidUser = async ()=>{
+        const checkedCredentials = await checkCredentials(userId, password);
+        console.log(checkedCredentials);
+    }
+
 
     return(
         <div className="login-component">
@@ -37,9 +43,9 @@ const LoginComponent = ()=>{
                     <p>Instagram</p>
                 </div>
                 <div className="main">
-                    <input className="user-id" type="text" placeholder="Phone number, username, or email" value={userId} onChange={checkUserIdLength}/>
+                    <input className="user-id" type="text" placeholder="Username, or email" value={userId} onChange={checkUserIdLength}/>
                     <input className="user-pass" type="password" placeholder="Password" value={password} onChange={checkPassLength}/>
-                    <button className='login-button'>Log in</button>
+                    <button className='login-button' onClick={checkValidUser}>Log in</button>
                     <div className="divider">
                         <hr className="divider-left"/>
                         <div>or</div>
@@ -48,9 +54,7 @@ const LoginComponent = ()=>{
                     <div className='google-login'>
                         <button><img src={googleIcon} alt="google icon"/>Log in with google</button>
                     </div>
-                    <div className='login-err'>
-                        <p></p>
-                    </div>
+                    <span className='login-err'></span>
                 </div>
             </div>
             <div className="signup-section">
