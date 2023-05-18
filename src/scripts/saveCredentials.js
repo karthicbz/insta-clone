@@ -3,12 +3,12 @@ import {getFirestore, collection, addDoc} from 'firebase/firestore/lite';
 
 const db = getFirestore(app);
 
-async function saveUserCredentials(email, username, fullname, password){
+async function saveUserCredentials(email, fullname, username, password){
     try{
         const doc = await addDoc(collection(db, 'credentials'), {
-            username: username,
             email: email,
             fullname: fullname,
+            username: username,
             password: password
         });
     }catch(e){
