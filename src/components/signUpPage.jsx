@@ -160,8 +160,9 @@ const SignupPage = ()=>{
         }else if(checkedCredentials.email === true){
             error.textContent = 'email already present';
         }else{
-            error.textContent = '';
             saveUserCredentials(email, fullName, userName, password);
+            error.textContent = 'Account created successfully';
+            error.setAttribute('style', 'color: gray;');
         }
     }
 

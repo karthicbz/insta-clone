@@ -6,7 +6,7 @@ const db = getFirestore(app);
 async function getCredentials(){
     console.log('getting credentials...');
     let credentials = [];
-    const details = await getDocs(collection(db, "credentials"));
+    const details = await getDocs(collection(db, "users"));
     details.forEach(detail=>{
         credentials = [...credentials, {email: detail.data().email, username: detail.data().username}];
     });
