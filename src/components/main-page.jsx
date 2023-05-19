@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import getSingleDoc from "../scripts/getSingleUser";
 import allUserDetails from "../scripts/getAllUsers";
+import saveFollowsFollowing from "../scripts/saveFollows";
 
 const Mainpage = ()=>{
     const params = useParams();
@@ -9,6 +10,7 @@ const Mainpage = ()=>{
     const [username, setUsername] = useState(''); //to store current username
     let [usersToFollow, setUsersToFollow] = useState([]); //to store other user names to follow
     const [userFollowing, setUserFollowing] = useState(''); //when current user follows someone the other person name get stored here
+    //and whenever user login the follows details also get stored in userfollowing
 
     async function thisUserDetails(){
         const userDetails = await getSingleDoc(params.userRefId); //this one get details about current user
@@ -34,8 +36,11 @@ const Mainpage = ()=>{
         thisUserDetails();
     }, [])
 
-    function handleFollow(e){
-        setUserFollowing([...userFollowing, e.target.id]);
+    async function handleFollow(e){
+        // setUserFollowing([...userFollowing, e.target.id]);
+        await saveFollowsFollowing(params.userRefId, [...userFollowing, e.target.id]); //when user click follows the followed user added into userfollowing
+        //which already contains user follows details it get fetched on load and both get merged into firebase
+        thisUserDetails();
     }
 
     return(
