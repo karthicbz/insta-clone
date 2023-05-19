@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import saveUserCredentials from "../scripts/saveCredentials";
 import checkCredentials from "../scripts/filterCredentials";
+import { LoginCheck } from "./routeSwitch";
 
 const ColorButton = styled.button`
         background-color: rgb(67, 167, 67);
@@ -98,6 +99,9 @@ const ErrorText = styled.span`
 
 const SignupPage = ()=>{
 
+    const loginStatus = useContext(LoginCheck);
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState('');
     const [userName, setUserName] = useState('');
     const [fullName, setFullName] = useState('');
@@ -160,9 +164,11 @@ const SignupPage = ()=>{
         }else if(checkedCredentials.email === true){
             error.textContent = 'email already present';
         }else{
-            saveUserCredentials(email, fullName, userName, password);
-            error.textContent = 'Account created successfully';
-            error.setAttribute('style', 'color: gray;');
+            const docRef = await saveUserCredentials(email, fullName, userName, password);
+            // error.textContent = 'Account created successfully';
+            // error.setAttribute('style', 'color: gray;');
+            loginStatus();
+            navigate(`/${docRef}`);
         }
     }
 
