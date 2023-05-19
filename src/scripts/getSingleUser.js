@@ -7,7 +7,7 @@ const getSingleDoc = async (refId)=>{
     const docRef = doc(db, 'users', refId);
     const singleDoc = await getDoc(docRef);
 
-    return singleDoc.data().username;
+    return {username: singleDoc.data().username, following: singleDoc.data().following};
 }
 
 export default getSingleDoc;

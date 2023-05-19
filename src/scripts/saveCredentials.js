@@ -13,7 +13,7 @@ async function saveUserCredentials(email, fullname, username, password){
             password: password,
             posts: [],
             following: [],
-            followers: []
+            followers: [],
         });
         docRef = doc.id;
     }catch(e){

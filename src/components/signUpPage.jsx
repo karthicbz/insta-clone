@@ -144,18 +144,9 @@ const SignupPage = ()=>{
 
     async function saveCredentials(e){
         e.preventDefault();
-        // const email = document.querySelector('.email');
-        // const fullName = document.querySelector('.fullname');
-        // const userName = document.querySelector('.username');
-        // const password = document.querySelector('.password');
+
         const error = document.querySelector('.error');
 
-        // if(checkCredentials(userName.value, email.value)){
-        //     error.textContent = 'Username or Email already present';
-        // }else{
-        //     error.textContent = '';
-        //     saveUserCredentials(email.value, fullName.value, userName.value, password.value);
-        // }
         error.textContent = '';
         const checkedCredentials = await checkCredentials(userName, email);
         // console.log(checkedCredentials);
@@ -165,8 +156,7 @@ const SignupPage = ()=>{
             error.textContent = 'email already present';
         }else{
             const docRef = await saveUserCredentials(email, fullName, userName, password);
-            // error.textContent = 'Account created successfully';
-            // error.setAttribute('style', 'color: gray;');
+
             loginStatus();
             navigate(`/${docRef}`);
         }
