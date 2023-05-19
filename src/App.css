@@ -10,6 +10,10 @@ html, body{
   height: 100%;
 }
 
+#root{
+  height: 100%;
+}
+
 :root{
   --button-color: rgb(67, 167, 67);
   --disabled-button-color: rgb(121, 169, 121);

@@ -3,6 +3,90 @@ import { Link, useParams } from "react-router-dom";
 import getSingleDoc from "../scripts/getSingleUser";
 import allUserDetails from "../scripts/getAllUsers";
 import saveFollowsFollowing from "../scripts/saveFollows";
+import styled from "styled-components";
+
+const Grid = styled.div`
+    display: grid;
+    grid-template: max-content 1fr/80% 1fr;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+
+    &>p{
+        grid-column: 1/2;
+        grid-row: 1/2;
+        font-size: 2rem;
+        font-family: 'Pacifico', cursive;
+        align-self: center;
+        padding-left: 2rem;
+        background: wheat;
+        padding: 5px 0px 5px 2rem;
+    }
+
+    &>.header-menu{
+        grid-column: 2/3;
+        grid-row: 1/2;
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        height: 100%;
+        align-items: center;
+        background:wheat;
+    }
+
+    &>.main-content{
+        grid-column: 1/2;
+        grid-row: 2/3;
+    }
+
+    &>.other-users{
+        grid-column: 2/3;
+        grid-row: 2/3;
+        height: max-content;
+        padding: 1rem;
+        border-radius: 8px;
+        // border: 1px solid gray;
+        justify-self: center;
+        align-self: start;
+        box-shadow: 0px 1px 3px 1px #cac7c7;
+        margin-top: 1rem;
+    }
+
+    &>.other-users>p{
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    &>.other-users>div{
+        display: flex;
+        gap: 10px;
+        padding: 8px 0;
+        align-items: center;
+        width: 200px;
+    }
+`;
+
+const FollowButton = styled.button`
+    padding: 5px;
+    border: none;
+    background: rgb(67, 167, 67);
+    color: white;
+    border-radius: 5px;
+    font-weight: 600;
+    box-shadow: 0px 1px 3px 1px #cac7c7;
+    margin-left: auto;
+
+    &:hover{
+        cursor: pointer;
+        background-color: green;
+    }
+
+    &:active{
+        transform: scale(0.95);
+    }
+`;
+
 
 const Mainpage = ()=>{
     const params = useParams();
@@ -44,21 +128,29 @@ const Mainpage = ()=>{
     }
 
     return(
-        <div>
-            <h1>Welcome {username}</h1>
-            <Link to={'/'}><button>Logout</button></Link>
+        <Grid className="main-page">
+            {/* <h1>Welcome {username}</h1> */}
+            <p>Instagram</p>
+            <div className="header-menu">
+                <span class="material-symbols-outlined">add_circle</span>
+                <span class="material-symbols-outlined">home</span>
+                <Link to={'/'}><span class="material-symbols-outlined">logout</span></Link>
+                <img src="#"/>
+            </div>
+            <div className="main-content">
+            </div>
             <div className="other-users">
                 <p>People you may know</p>
                 {usersToFollow.map(user =>{
                     return(
                         <div key={user.username}>
                             <p className="user-name">{user.username}</p>
-                            <button className="button-follow" id={user.username} onClick={handleFollow}>Follow</button>
+                            <FollowButton className="button-follow" id={user.username} onClick={handleFollow}>Follow</FollowButton>
                         </div>
                     )
                 })}
             </div>
-        </div>
+        </Grid>
     )
 }
 
