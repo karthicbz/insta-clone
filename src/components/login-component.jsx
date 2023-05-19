@@ -1,13 +1,15 @@
 import '../App.css';
 import googleIcon from '../assets/images/google.png'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import checkCredentials from '../scripts/checkCredentials';
+import { LoginCheck } from './routeSwitch';
 
 const LoginComponent = ()=>{
     const navigate = useNavigate();
     const [userId, setUserId] = useState('');
     const [password, setPassword] = useState('');
+    const loginStatus = useContext(LoginCheck);
 
     const checkUserIdLength = (e)=>{
         setUserId(e.target.value);
@@ -40,6 +42,7 @@ const LoginComponent = ()=>{
         }else if(checkedCredentials.password === false){
             loginError.textContent = 'Incorrect password';
         }else{
+            loginStatus();
             navigate(`/${checkedCredentials.userRef}`);
         }
     }

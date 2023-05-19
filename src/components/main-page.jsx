@@ -4,18 +4,15 @@ import getSingleDoc from "../scripts/getSingleUser";
 
 const Mainpage = ()=>{
     const params = useParams();
+    // const navigate = useNavigate();
     const [username, setUsername] = useState('');
-    // console.log(params);
 
     async function thisUserDetails(){
         const username = await getSingleDoc(params.userRefId);
-        // return userDetails;
-        // console.log(userDetails);
         setUsername(username);
     }
 
     useEffect(()=>{
-        // console.log(thisUserDetails());
         thisUserDetails();
     }, [])
 
