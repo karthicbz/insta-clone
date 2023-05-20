@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import getSingleDoc from "../scripts/getSingleUser";
 import allUserDetails from "../scripts/getAllUsers";
-import saveFollowsFollowing from "../scripts/saveFollows";
+import saveFollowing from "../scripts/saveFollows";
 import styled from "styled-components";
+import saveFollowers from "../scripts/saveFollowers";
 
 const Grid = styled.div`
     display: grid;
@@ -106,10 +107,10 @@ const Mainpage = ()=>{
     async function otherUsers(name, follows){
         let followList = []
         const users = await allUserDetails(); //this one fetch all user details
-        
+
         users.forEach(user=>{ //i am filtering users to follow which doesn't include current user
             if(user.username !== name && !follows.includes(user.username)){
-                followList = [...followList, {username: user.username}];
+                followList = [...followList, {username: user.username, userId: user.refId}];//i am getting user refId so that it would be easy to save followers
             }
         })
 
@@ -122,8 +123,9 @@ const Mainpage = ()=>{
 
     async function handleFollow(e){
         // setUserFollowing([...userFollowing, e.target.id]);
-        await saveFollowsFollowing(params.userRefId, [...userFollowing, e.target.id]); //when user click follows the followed user added into userfollowing
+        await saveFollowing(params.userRefId, [...userFollowing, e.target.id]); //when user click follows the followed user added into userfollowing
         //which already contains user follows details it get fetched on load and both get merged into firebase
+        saveFollowers(username, e.target.parentNode.id);
         thisUserDetails();
     }
 
@@ -132,9 +134,9 @@ const Mainpage = ()=>{
             {/* <h1>Welcome {username}</h1> */}
             <p>Instagram</p>
             <div className="header-menu">
-                <Link to={'/newpost'} state={{refId:params.userRefId}}><span class="material-symbols-outlined">add_circle</span></Link>
-                <span class="material-symbols-outlined">home</span>
-                <Link to={'/'}><span class="material-symbols-outlined">logout</span></Link>
+                <Link to={'/newpost'} state={{refId:params.userRefId}}><span className="material-symbols-outlined">add_circle</span></Link>
+                <span className="material-symbols-outlined">home</span>
+                <Link to={'/'}><span className="material-symbols-outlined">logout</span></Link>
                 <img src="#"/>
             </div>
             <div className="main-content">
@@ -143,7 +145,7 @@ const Mainpage = ()=>{
                 <p>People you may know</p>
                 {usersToFollow.map(user =>{
                     return(
-                        <div key={user.username}>
+                        <div key={user.username} id={user.userId}>
                             <p className="user-name">{user.username}</p>
                             <FollowButton className="button-follow" id={user.username} onClick={handleFollow}>Follow</FollowButton>
                         </div>

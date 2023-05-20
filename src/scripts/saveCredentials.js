@@ -1,12 +1,12 @@
 import app from "./firebaseConfig";
-import {getFirestore, collection, addDoc} from 'firebase/firestore/lite';
+import {getFirestore, collection, addDoc, setDoc, doc} from 'firebase/firestore/lite';
 
 const db = getFirestore(app);
 
 async function saveUserCredentials(email, fullname, username, password){
     let docRef = '';
     try{
-        const doc = await addDoc(collection(db, 'users'), {
+        const newDoc = await addDoc(collection(db, 'users'), {
             email: email,
             fullname: fullname,
             username: username,
@@ -15,7 +15,11 @@ async function saveUserCredentials(email, fullname, username, password){
             following: [],
             followers: [],
         });
-        docRef = doc.id;
+        // docRef = doc.id;
+        await setDoc(doc(db, 'users', newDoc.id), {
+            refId: newDoc.id,
+        }, {merge:true});
+        docRef = newDoc.id;
     }catch(e){
         console.error('error adding data', e);
     }
