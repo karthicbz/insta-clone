@@ -132,7 +132,7 @@ const Mainpage = ()=>{
             {/* <h1>Welcome {username}</h1> */}
             <p>Instagram</p>
             <div className="header-menu">
-                <span class="material-symbols-outlined">add_circle</span>
+                <Link to={'/newpost'} state={{refId:params.userRefId}}><span class="material-symbols-outlined">add_circle</span></Link>
                 <span class="material-symbols-outlined">home</span>
                 <Link to={'/'}><span class="material-symbols-outlined">logout</span></Link>
                 <img src="#"/>
