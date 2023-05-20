@@ -106,7 +106,7 @@ const Mainpage = ()=>{
     async function otherUsers(name, follows){
         let followList = []
         const users = await allUserDetails(); //this one fetch all user details
-
+        
         users.forEach(user=>{ //i am filtering users to follow which doesn't include current user
             if(user.username !== name && !follows.includes(user.username)){
                 followList = [...followList, {username: user.username}];
