@@ -21,7 +21,7 @@ const NewpostPage = ()=>{
 
     function uploadImage(e){
         e.preventDefault();
-        uploadFile(imageDetails);
+        uploadFile(imageDetails, location.state.refId);
     }
 
     return(
