@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import uploadFile from "../scripts/uploadToFirebase";
 import HeaderMenu from "./headerMenu";
@@ -114,6 +114,8 @@ const NewpostPage = ()=>{
     const [imageUrl, setImageUrl] = useState('');
     const [imageDetails, setImageDetails] = useState('');
     const [description, setDescription] = useState('');
+    const [uploaded, setUploaded] = useState(false);
+    
     const navigate = useNavigate();
 
     function getImageBlob(e){
@@ -128,11 +130,20 @@ const NewpostPage = ()=>{
         // }
     }
 
-    function uploadImage(e){
+    async function uploadImage(e){
         e.preventDefault();
-        uploadFile(imageDetails, location.state.refId, description);
-        navigate(`/${location.state.refId}`);
+        const uploadStatus = await uploadFile(imageDetails, location.state.refId, description);
+        setUploaded(uploadStatus);
+        // if(uploaded === true){
+        //     navigate(`/${location.state.refId}`);
+        // }
     }
+
+    useEffect(()=>{
+        if(uploaded === true){
+            navigate(`/${location.state.refId}`);
+        }
+    }, [uploaded])
 
     function handleDescription(e){
         setDescription(e.target.value);

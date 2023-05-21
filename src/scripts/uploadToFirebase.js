@@ -30,6 +30,8 @@ async function uploadFile(imageRef, userRef, postDesc){//it uploads image to fir
         postId: userRef+Date.now(),
         description: postDesc,
     }]);
+
+    return true;
 }
 
 export default uploadFile;
