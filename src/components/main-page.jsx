@@ -38,6 +38,11 @@ const Grid = styled.div`
     &>.main-content{
         grid-column: 1/2;
         grid-row: 2/3;
+        display: grid;
+        row-gap: 1rem;
+        height: 100%;
+        justify-items: center;
+        padding: 1rem;
     }
 
     &>.other-users{
@@ -88,6 +93,21 @@ const FollowButton = styled.button`
     }
 `;
 
+const PostContainer = styled.div`
+    width: 400px;
+    height: 400px;
+    padding: 8px;
+    box-shadow: 0px 1px 7px 2px rgb(202, 200, 200);
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
+
+    &>img{
+        width: 350px;
+        height: 350px;
+    }
+`;
+
 
 const Mainpage = ()=>{
     const params = useParams();
@@ -96,12 +116,14 @@ const Mainpage = ()=>{
     let [usersToFollow, setUsersToFollow] = useState([]); //to store other user names to follow
     const [userFollowing, setUserFollowing] = useState(''); //when current user follows someone the other person name get stored here
     //and whenever user login the follows details also get stored in userfollowing
+    const [posts, setPosts] = useState([]);
 
     async function thisUserDetails(){
         const userDetails = await getSingleDoc(params.userRefId); //this one get details about current user
         setUsername(userDetails.username);
         setUserFollowing(userDetails.following);
         otherUsers(userDetails.username, userDetails.following); //invoking other user function here
+        showPosts(userDetails.username, userDetails.following);
     }
 
     async function otherUsers(name, follows){
@@ -117,8 +139,25 @@ const Mainpage = ()=>{
         setUsersToFollow(followList);
     }
 
+    async function showPosts(name, follows){
+        let postDetails = [];
+        const users = await allUserDetails();
+        users.forEach(user=>{
+            if(user.username === name || follows.includes(user.username)){
+                if(user.posts.length !== 0){
+                    // postDetails = [...postDetails, {posts: user.posts}]
+                    user.posts.forEach(post=>{
+                        // console.log({post: post});
+                        postDetails = [...postDetails, post]
+                    })
+                }
+            }
+        })
+        setPosts(postDetails);
+    }
+
     useEffect(()=>{
-        thisUserDetails();
+        thisUserDetails(); //this function updates the ui everytime user follows other users and put new post.
     }, [])
 
     async function handleFollow(e){
@@ -137,9 +176,17 @@ const Mainpage = ()=>{
                 <Link to={'/newpost'} state={{refId:params.userRefId}}><span className="material-symbols-outlined">add_circle</span></Link>
                 <span className="material-symbols-outlined">home</span>
                 <Link to={'/'}><span className="material-symbols-outlined">logout</span></Link>
-                <img src="#"/>
+                <p>{username}</p>
             </div>
             <div className="main-content">
+                {posts.map(post=>{
+                    // console.log(post);
+                    return(
+                        <PostContainer>
+                            <img src={post.imgUrl} alt="post image"/>
+                        </PostContainer>
+                    )
+                })}
             </div>
             <div className="other-users">
                 <p>People you may know</p>

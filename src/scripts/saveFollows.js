@@ -3,7 +3,7 @@ import { getFirestore, setDoc, doc } from "firebase/firestore/lite";
 
 const db = getFirestore(app);
 
-const saveFollowsFollowing = async (refid, followList)=>{
+const saveFollowing = async (refid, followList)=>{
     const docRef = doc(db, 'users', refid);
     try{
         await setDoc(docRef, {
@@ -14,4 +14,4 @@ const saveFollowsFollowing = async (refid, followList)=>{
     }
 }
 
-export default saveFollowsFollowing;
+export default saveFollowing;
