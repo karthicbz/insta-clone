@@ -120,7 +120,7 @@ const FollowButton = styled.button`
 
 const PostContainer = styled.div`
     width: 450px;
-    height: 450px;
+    height: max-content;
     padding: 8px;
     box-shadow: 0px 1px 7px 2px rgb(202, 200, 200);
     display: flex;
@@ -232,6 +232,11 @@ const Mainpage = ()=>{
                             <p className="user-name">{post.name}</p>
                             <img src={post.post.imgUrl} alt="post image"/>
                             <p className="post-desc"><span>{post.name+' '}</span>{post.post.description}</p>
+                            <button>like</button>
+                            <div>
+                                <textarea placeholder="your comment.."></textarea>
+                                <button>Comment</button>
+                            </div>
                         </PostContainer>
                     )
                 })}
