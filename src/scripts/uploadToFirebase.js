@@ -5,7 +5,8 @@ import getSingleDoc from "./getSingleUser";
 
 const storage = getStorage(app);
 
-async function uploadFile(imageRef, userRef){
+async function uploadFile(imageRef, userRef, postDesc){//it uploads image to firebase, takes 3 arguments 
+    //1.takes image object, 2.user ref id, 3.post description
     let postDetails = [];
     const storageRef = ref(storage, 'post/'+imageRef.name);
     const uploadedFile = await uploadBytes(storageRef, imageRef);
@@ -27,6 +28,7 @@ async function uploadFile(imageRef, userRef){
         created: Date.now(),
         userId: userRef,
         postId: userRef+Date.now(),
+        description: postDesc,
     }]);
 }
 

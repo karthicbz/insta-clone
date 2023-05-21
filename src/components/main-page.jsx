@@ -5,6 +5,7 @@ import allUserDetails from "../scripts/getAllUsers";
 import saveFollowing from "../scripts/saveFollows";
 import styled from "styled-components";
 import saveFollowers from "../scripts/saveFollowers";
+import HeaderMenu from "./headerMenu";
 
 const Grid = styled.div`
     display: grid;
@@ -101,6 +102,11 @@ const PostContainer = styled.div`
     display: flex;
     justify-content: center;
     border-radius: 8px;
+    flex-direction: column;
+
+    &>p{
+        font-weight: 600;
+    }
 
     &>img{
         width: 350px;
@@ -148,7 +154,7 @@ const Mainpage = ()=>{
                     // postDetails = [...postDetails, {posts: user.posts}]
                     user.posts.forEach(post=>{
                         // console.log({post: post});
-                        postDetails = [...postDetails, post]
+                        postDetails = [...postDetails, {name: user.username, post: post}]
                     })
                 }
             }
@@ -171,19 +177,13 @@ const Mainpage = ()=>{
     return(
         <Grid className="main-page">
             {/* <h1>Welcome {username}</h1> */}
-            <p>Instagram</p>
-            <div className="header-menu">
-                <Link to={'/newpost'} state={{refId:params.userRefId}}><span className="material-symbols-outlined">add_circle</span></Link>
-                <span className="material-symbols-outlined">home</span>
-                <Link to={'/'}><span className="material-symbols-outlined">logout</span></Link>
-                <p>{username}</p>
-            </div>
+            <HeaderMenu username={username} userRefId={params.userRefId}/>
             <div className="main-content">
-                {posts.map(post=>{
-                    // console.log(post);
+                {posts.sort((a,b)=>b.post.created - a.post.created).map(post=>{
                     return(
                         <PostContainer>
-                            <img src={post.imgUrl} alt="post image"/>
+                            <p>{post.name}</p>
+                            <img src={post.post.imgUrl} alt="post image"/>
                         </PostContainer>
                     )
                 })}
