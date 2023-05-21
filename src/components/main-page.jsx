@@ -23,6 +23,8 @@ const Grid = styled.div`
         padding-left: 2rem;
         background: wheat;
         padding: 5px 0px 5px 2rem;
+        position: sticky;
+        top: 0;
     }
 
     &>.header-menu{
@@ -34,6 +36,26 @@ const Grid = styled.div`
         height: 100%;
         align-items: center;
         background:wheat;
+        position: sticky;
+        top: 0;
+        z-index: 2;
+    }
+
+    &>.header-menu>a{
+        text-decoration: none;
+    }
+
+    &>.header-menu>a>span{
+        font-size: 1.8rem;
+        color: black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform ease-in-out 0.5s;
+    }
+
+    &>.header-menu>a>span:hover{
+        transform: rotate(360deg);
     }
 
     &>.main-content{
@@ -57,6 +79,8 @@ const Grid = styled.div`
         align-self: start;
         box-shadow: 0px 1px 3px 1px #cac7c7;
         margin-top: 1rem;
+        position: sticky;
+        top: 84px;
     }
 
     &>.other-users>p{
@@ -95,22 +119,45 @@ const FollowButton = styled.button`
 `;
 
 const PostContainer = styled.div`
-    width: 400px;
-    height: 400px;
+    width: 450px;
+    height: 450px;
     padding: 8px;
     box-shadow: 0px 1px 7px 2px rgb(202, 200, 200);
     display: flex;
     justify-content: center;
     border-radius: 8px;
     flex-direction: column;
+    // align-items: center;
+    gap: 8px;
+    box-sizing: border-box;
 
-    &>p{
+    &>.user-name{
         font-weight: 600;
+        background: #43a743;
+        width: max-content;
+        padding: 4px;
+        border-radius: 8px;
+        color: white;
+        margin-right: 0.8rem;
+        align-self: end;
     }
 
     &>img{
         width: 350px;
         height: 350px;
+        align-self: center;
+        border-radius: 8px;
+    }
+
+    &>.post-desc{
+        font-size: 0.9rem;
+        font-weight: 400;
+        margin-left: 0.8rem;
+    }
+
+    &>.post-desc>span{
+        font-size: 1rem;
+        font-weight: 600;
     }
 `;
 
@@ -182,8 +229,9 @@ const Mainpage = ()=>{
                 {posts.sort((a,b)=>b.post.created - a.post.created).map(post=>{
                     return(
                         <PostContainer>
-                            <p>{post.name}</p>
+                            <p className="user-name">{post.name}</p>
                             <img src={post.post.imgUrl} alt="post image"/>
+                            <p className="post-desc"><span>{post.name+' '}</span>{post.post.description}</p>
                         </PostContainer>
                     )
                 })}

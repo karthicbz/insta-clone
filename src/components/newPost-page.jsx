@@ -32,6 +32,24 @@ const Grid = styled.div`
         align-items: center;
         background:wheat;
     }
+
+    &>.header-menu>a{
+        text-decoration: none;
+    }
+
+    &>.header-menu>a>span{
+        font-size: 1.8rem;
+        color: black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform ease-in-out 0.5s;
+    }
+
+    &>.header-menu>a>span:hover{
+        transform: rotate(360deg);
+    }
+    
     &>.post-creator{
         grid-column: 1/3;
         grid-row: 2/3;
