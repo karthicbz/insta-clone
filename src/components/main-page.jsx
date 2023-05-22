@@ -300,9 +300,13 @@ const Mainpage = ()=>{
     }
 
     async function handleComment(e){
+        if(comment != ''){
         await saveComments(e.target.parentNode.parentNode.id, username, comment, e.target.parentNode.id);
         // document.querySelector('.comment-section>input').value = '';
         thisUserDetails();
+        }else{
+            alert('Empty comment..')
+        }
     }
 
     async function changeHeartColor(e){
