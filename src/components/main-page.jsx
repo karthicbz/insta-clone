@@ -6,6 +6,7 @@ import saveFollowing from "../scripts/saveFollows";
 import styled from "styled-components";
 import saveFollowers from "../scripts/saveFollowers";
 import HeaderMenu from "./headerMenu";
+import saveComments from "../scripts/saveComments";
 
 const Grid = styled.div`
     display: grid;
@@ -202,6 +203,20 @@ const CommentBox = styled.div`
     }
 `;
 
+const CommentSection = styled.div`
+    margin-left: 10px;
+    height: 100px;
+    overflow: auto;
+    &>p{
+        display: flex;
+        gap: 8px;
+    }
+
+    &>p>span{
+        font-weight: 600;
+    }
+`;
+
 const Mainpage = ()=>{
     const params = useParams();
     // const navigate = useNavigate();
@@ -210,6 +225,13 @@ const Mainpage = ()=>{
     const [userFollowing, setUserFollowing] = useState(''); //when current user follows someone the other person name get stored here
     //and whenever user login the follows details also get stored in userfollowing
     const [posts, setPosts] = useState([]);
+    const [comment, setComment] = useState('');
+
+    function clearCommentInput(){
+        document.querySelectorAll('.post-container').forEach(post=>{
+            post.querySelector('.comment-section>input').value = '';
+        })
+    }
 
     async function thisUserDetails(){
         const userDetails = await getSingleDoc(params.userRefId); //this one get details about current user
@@ -217,6 +239,7 @@ const Mainpage = ()=>{
         setUserFollowing(userDetails.following);
         otherUsers(userDetails.username, userDetails.following); //invoking other user function here
         showPosts(userDetails.username, userDetails.following);
+        clearCommentInput();
     }
 
     async function otherUsers(name, follows){
@@ -260,6 +283,16 @@ const Mainpage = ()=>{
         saveFollowers(username, e.target.parentNode.id);
         thisUserDetails();
     }
+    
+    function getCommentText(e){
+        setComment(e.target.value);
+    }
+
+    async function handleComment(e){
+        await saveComments(e.target.parentNode.parentNode.id, username, comment, e.target.parentNode.id);
+        // document.querySelector('.comment-section>input').value = '';
+        thisUserDetails();
+    }
 
     return(
         <Grid className="main-page">
@@ -268,14 +301,21 @@ const Mainpage = ()=>{
             <div className="main-content">
                 {posts.sort((a,b)=>b.post.created - a.post.created).map(post=>{
                     return(
-                        <PostContainer id={post.post.postId}>
+                        <PostContainer id={post.post.postId} key={post.post.postId} className="post-container">
                             <p className="user-name">{post.name}</p>
                             <img src={post.post.imgUrl} alt="post image"/>
                             <p className="post-desc"><span>{post.name+' '}</span>{post.post.description}</p>
-                            <p className="like-post"><span class="material-symbols-outlined">favorite</span>0 likes</p>
-                            <CommentBox className="comment-section">
-                                <input type="text" placeholder="your comment.."/>
-                                <button>Comment</button>
+                            <CommentSection>
+                            {post.post.comments.length !== 0 ?post.post.comments.map(comment=>{
+                                return(
+                                    <p><span>{comment.user}</span>{comment.comment}</p>
+                                )
+                            }):<p>No comments yet..</p>}
+                            </CommentSection>
+                            <p className="like-post"><span className="material-symbols-outlined">favorite</span>0 likes</p>
+                            <CommentBox className="comment-section" id={post.post.userId}>
+                                <input type="text" placeholder="your comment.." onChange={getCommentText}/>
+                                <button onClick={handleComment}>Comment</button>
                             </CommentBox>
                         </PostContainer>
                     )
