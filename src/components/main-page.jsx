@@ -8,6 +8,7 @@ import saveFollowers from "../scripts/saveFollowers";
 import HeaderMenu from "./headerMenu";
 import saveComments from "../scripts/saveComments";
 import updateLikes from "../scripts/updateLikes";
+import Loader from "./loader";
 
 const Grid = styled.div`
     display: grid;
@@ -170,10 +171,13 @@ const PostContainer = styled.div`
 
         &>span{
             color: #dfd6d6;
+            transition: transform ease-in-out 0.2s;
         }
 
         &>span:hover{
             cursor: pointer;
+            color: red;
+            transform: scale(1.2);
         }
     }
 `;
@@ -201,6 +205,7 @@ const CommentBox = styled.div`
         padding: 0 4px;
         background: rgba(208, 231, 245, 0);
         transition: background ease-in-out 0.3s;
+        width: 100px;
     }
 
     &>button:hover{
@@ -215,18 +220,27 @@ const CommentBox = styled.div`
 
 const CommentSection = styled.div`
     margin-left: 10px;
-    height: 100px;
+    height: 80px;
     overflow: auto;
     &>p{
         display: flex;
         gap: 8px;
+        font-size: 0.9rem;
     }
 
     &>p>span{
         font-weight: 600;
+        color: #838080;
+        font-size: 1rem;
     }
 `;
 
+const HelpText = styled.p`
+    font-size: 2rem;
+    color: gray;
+    display: grid;
+    align-content: center;
+`
 const Mainpage = ()=>{
     const params = useParams();
     // const navigate = useNavigate();
@@ -236,6 +250,8 @@ const Mainpage = ()=>{
     //and whenever user login the follows details also get stored in userfollowing
     const [posts, setPosts] = useState([]);
     const [comment, setComment] = useState('');
+    const [followLoading, setFollowLoading] = useState(false);
+    const [commentsLoading, setCommentsLoading] = useState(false);
     // const [likes, setLikes] = useState([]);
 
     function clearCommentInput(){
@@ -288,10 +304,12 @@ const Mainpage = ()=>{
     }, [])
 
     async function handleFollow(e){
+        setFollowLoading(true);
         // setUserFollowing([...userFollowing, e.target.id]);
         await saveFollowing(params.userRefId, [...userFollowing, e.target.id]); //when user click follows the followed user added into userfollowing
         //which already contains user follows details it get fetched on load and both get merged into firebase
         saveFollowers(username, e.target.parentNode.id);
+        setFollowLoading(false);
         thisUserDetails();
     }
     
@@ -301,9 +319,11 @@ const Mainpage = ()=>{
 
     async function handleComment(e){
         if(comment != ''){
-        await saveComments(e.target.parentNode.parentNode.id, username, comment, e.target.parentNode.id);
-        // document.querySelector('.comment-section>input').value = '';
-        thisUserDetails();
+            setCommentsLoading(true);
+            await saveComments(e.target.parentNode.parentNode.id, username, comment, e.target.parentNode.id);
+            // document.querySelector('.comment-section>input').value = '';
+            setCommentsLoading(false);
+            thisUserDetails();
         }else{
             alert('Empty comment..')
         }
@@ -320,12 +340,13 @@ const Mainpage = ()=>{
             {/* <h1>Welcome {username}</h1> */}
             <HeaderMenu username={username} userRefId={params.userRefId}/>
             <div className="main-content">
-                {posts.sort((a,b)=>b.post.created - a.post.created).map(post=>{
+                {posts.length!==0? posts.sort((a,b)=>b.post.created - a.post.created).map(post=>{
                     return(
                         <PostContainer id={post.post.postId} key={post.post.postId} className="post-container">
                             <p className="user-name">{post.name}</p>
                             <img src={post.post.imgUrl} alt="post image"/>
                             <p className="post-desc"><span>{post.name+' '}</span>{post.post.description}</p>
+                            <p style={{'fontSize':'0.9rem', 'marginLeft':'10px', 'color':'gray'}}>Comments</p>
                             <CommentSection>
                             {post.post.comments.length !== 0 ?post.post.comments.map(comment=>{
                                 return(
@@ -338,22 +359,22 @@ const Mainpage = ()=>{
                             :<span className="material-symbols-outlined" id={post.post.userId} onClick={changeHeartColor}>favorite</span>}{post.post.likes.length} likes</p>
                             <CommentBox className="comment-section" id={post.post.userId}>
                                 <input type="text" placeholder="your comment.." onChange={getCommentText}/>
-                                <button onClick={handleComment}>Comment</button>
+                                <button onClick={handleComment}>{(commentsLoading)?<Loader size={4} color='gray'/>:'Comment'}</button>
                             </CommentBox>
                         </PostContainer>
                     )
-                })}
+                }):<HelpText>Follow users to see their posts</HelpText>}
             </div>
             <div className="other-users">
                 <p>People you may know</p>
-                {usersToFollow.map(user =>{
+                {usersToFollow.length !==0 ? usersToFollow.map(user =>{
                     return(
                         <div key={user.username} id={user.userId}>
                             <p className="user-name">{user.username}</p>
-                            <FollowButton className="button-follow" id={user.username} onClick={handleFollow}>Follow</FollowButton>
+                            <FollowButton className="button-follow" id={user.username} onClick={handleFollow}>{(followLoading)?<Loader size={6}/>:'Follow'}</FollowButton>
                         </div>
                     )
-                })}
+                }):<Loader color="gray" style={{'display':'flex', 'justify-content':'center'}}/>}
             </div>
         </Grid>
     )

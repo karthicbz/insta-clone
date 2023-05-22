@@ -4,12 +4,15 @@ import { useEffect, useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import checkCredentials from '../scripts/checkCredentials';
 import { LoginCheck } from './routeSwitch';
+// import PulseLoader from 'react-spinners/PulseLoader';
+import Loader from './loader';
 
 const LoginComponent = ()=>{
     const navigate = useNavigate();
     const [userId, setUserId] = useState('');
     const [password, setPassword] = useState('');
     const loginStatus = useContext(LoginCheck);
+    const [loading, setLoading] = useState(false);
 
     const checkUserIdLength = (e)=>{
         setUserId(e.target.value);
@@ -34,19 +37,21 @@ const LoginComponent = ()=>{
     }, [password, userId])
 
     const checkValidUser = async ()=>{
+        setLoading(true);
         const loginError = document.querySelector('.login-err');
         const checkedCredentials = await checkCredentials(userId, password);
         // console.log(checkedCredentials);
         if(checkedCredentials.userId === false){
             loginError.textContent = 'UserName/Email not found';
+            setLoading(false);
         }else if(checkedCredentials.password === false){
             loginError.textContent = 'Incorrect password';
+            setLoading(false);
         }else{
             loginStatus();
             navigate(`/${checkedCredentials.userRef}`);
         }
     }
-
 
     return(
         <div className="login-component">
@@ -57,7 +62,7 @@ const LoginComponent = ()=>{
                 <div className="main">
                     <input className="user-id" type="text" placeholder="Username, or email" value={userId} onChange={checkUserIdLength}/>
                     <input className="user-pass" type="password" placeholder="Password" value={password} onChange={checkPassLength}/>
-                    <button className='login-button' onClick={checkValidUser}>Log in</button>
+                    <button className='login-button' onClick={checkValidUser}>{(loading)?<Loader/>:'Log in'}</button>
                     <div className="divider">
                         <hr className="divider-left"/>
                         <div>or</div>

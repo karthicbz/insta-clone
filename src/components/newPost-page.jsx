@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import uploadFile from "../scripts/uploadToFirebase";
 import HeaderMenu from "./headerMenu";
 import styled from "styled-components";
+import Loader from "./loader";
 
 const Grid = styled.div`
     display: grid;
@@ -133,6 +134,7 @@ const NewpostPage = ()=>{
     const [imageDetails, setImageDetails] = useState('');
     const [description, setDescription] = useState('');
     const [uploaded, setUploaded] = useState(false);
+    const [loading, setLoading] = useState(false);
     
     const navigate = useNavigate();
 
@@ -150,8 +152,13 @@ const NewpostPage = ()=>{
 
     async function uploadImage(e){
         e.preventDefault();
-        const uploadStatus = await uploadFile(imageDetails, location.state.refId, description);
-        setUploaded(uploadStatus);
+        if(imageDetails !== ''){
+            setLoading(true);
+            const uploadStatus = await uploadFile(imageDetails, location.state.refId, description);
+            setUploaded(uploadStatus);
+        }else{
+            alert("Can't post empty image");
+        }
         // if(uploaded === true){
         //     navigate(`/${location.state.refId}`);
         // }
@@ -159,6 +166,7 @@ const NewpostPage = ()=>{
 
     useEffect(()=>{
         if(uploaded === true){
+            setLoading(false);
             navigate(`/${location.state.refId}`);
         }
     }, [uploaded])
@@ -179,7 +187,7 @@ const NewpostPage = ()=>{
                 <form>
                     <textarea rows="5" className="post-desc" placeholder="say something about your post..."
                     onChange={handleDescription}></textarea>
-                    <button className="create-post" onClick={uploadImage}>Create Post</button>
+                    <button className="create-post" onClick={uploadImage}>{(loading)?<Loader/>:'Create Post'}</button>
                 </form>
             </div>
         </Grid>

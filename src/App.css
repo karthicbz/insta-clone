@@ -159,3 +159,10 @@ html, body{
 .like-post>.material-symbols-outlined.colored-heart{
   color: red;
 }
+
+.login-err{
+  color: red;
+  padding-bottom: 16px;
+  font-size: 0.8rem;
+  /* font-weight: 600; */
+}

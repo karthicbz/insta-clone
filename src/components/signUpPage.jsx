@@ -4,7 +4,7 @@ import { useState, useEffect, useContext } from "react";
 import saveUserCredentials from "../scripts/saveCredentials";
 import checkCredentials from "../scripts/filterCredentials";
 import { LoginCheck } from "./routeSwitch";
-import BeatLoader from 'react-spinners/PulseLoader';
+import PulseLoader from 'react-spinners/PulseLoader';
 
 const ColorButton = styled.button`
         background-color: rgb(67, 167, 67);
@@ -74,6 +74,17 @@ const LinkButton = styled.button`
         background-color: rgb(45 114 45);
     }
 `;
+
+const TextButton = styled(LinkButton)`
+    &:active{
+        transform: scale(1);
+        background-color: transparent;
+    }
+
+    &:hover{
+        text-decoration: underline;
+    }
+`
 
 const Para = styled.p`
     font-size: 1.1rem;
@@ -188,12 +199,12 @@ const SignupPage = ()=>{
                     <UserInput className="username" placeholder="Username" value={userName} onChange={handleUsername} required></UserInput>
                     <UserInput className="password" type="password" value={password} onChange={handlePassword} placeholder="Password" required></UserInput>
                     <ErrorText className="error"></ErrorText>
-                    <ColorButton className="signup-button" onClick={saveCredentials}>{(loading)?<BeatLoader color={'white'} loading={true} size={8}/>:'Sign up'}</ColorButton>
+                    <ColorButton className="signup-button" onClick={saveCredentials}>{(loading)?<PulseLoader color={'white'} loading={true} size={8}/>:'Sign up'}</ColorButton>
                 </SignupForm>
             </WrapperSignup>
         </WrapperChild>
         <WrapperChild>
-            <SignupPara>Have an account? <Link to={"/"}><LinkButton>Login</LinkButton></Link></SignupPara>
+            <SignupPara>Have an account? <Link to={"/"}><TextButton>Login</TextButton></Link></SignupPara>
         </WrapperChild>
     </Wrapper>
     );
