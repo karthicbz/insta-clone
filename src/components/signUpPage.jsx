@@ -4,6 +4,7 @@ import { useState, useEffect, useContext } from "react";
 import saveUserCredentials from "../scripts/saveCredentials";
 import checkCredentials from "../scripts/filterCredentials";
 import { LoginCheck } from "./routeSwitch";
+import BeatLoader from 'react-spinners/PulseLoader';
 
 const ColorButton = styled.button`
         background-color: rgb(67, 167, 67);
@@ -68,6 +69,10 @@ const LinkButton = styled.button`
     &:hover{
         cursor: pointer;
     }
+    &:active{
+        transform: scale(0.95);
+        background-color: rgb(45 114 45);
+    }
 `;
 
 const Para = styled.p`
@@ -106,6 +111,7 @@ const SignupPage = ()=>{
     const [userName, setUserName] = useState('');
     const [fullName, setFullName] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
     
     const handleEmail = (e)=>{
         setEmail(e.target.value);
@@ -144,7 +150,7 @@ const SignupPage = ()=>{
 
     async function saveCredentials(e){
         e.preventDefault();
-
+        setLoading(true);
         const error = document.querySelector('.error');
 
         error.textContent = '';
@@ -152,8 +158,10 @@ const SignupPage = ()=>{
         // console.log(checkedCredentials);
         if(checkedCredentials.username === true){
             error.textContent = 'username already present';
+            setLoading(false);
         }else if(checkedCredentials.email === true){
             error.textContent = 'email already present';
+            setLoading(false);
         }else{
             const docRef = await saveUserCredentials(email, fullName, userName, password);
 
@@ -180,7 +188,7 @@ const SignupPage = ()=>{
                     <UserInput className="username" placeholder="Username" value={userName} onChange={handleUsername} required></UserInput>
                     <UserInput className="password" type="password" value={password} onChange={handlePassword} placeholder="Password" required></UserInput>
                     <ErrorText className="error"></ErrorText>
-                    <ColorButton className="signup-button" onClick={saveCredentials}>Sign up</ColorButton>
+                    <ColorButton className="signup-button" onClick={saveCredentials}>{(loading)?<BeatLoader color={'white'} loading={true} size={8}/>:'Sign up'}</ColorButton>
                 </SignupForm>
             </WrapperSignup>
         </WrapperChild>
