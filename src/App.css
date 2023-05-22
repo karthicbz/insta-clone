@@ -155,3 +155,7 @@ html, body{
 .signup-section>p>a>button{
   cursor: pointer;
 }
+
+.like-post>.material-symbols-outlined.colored-heart{
+  color: red;
+}

@@ -7,6 +7,7 @@ import styled from "styled-components";
 import saveFollowers from "../scripts/saveFollowers";
 import HeaderMenu from "./headerMenu";
 import saveComments from "../scripts/saveComments";
+import updateLikes from "../scripts/updateLikes";
 
 const Grid = styled.div`
     display: grid;
@@ -165,6 +166,15 @@ const PostContainer = styled.div`
         display: flex;
         margin-left: 8px;
         gap: 8px;
+        align-items: center;
+
+        &>span{
+            color: #dfd6d6;
+        }
+
+        &>span:hover{
+            cursor: pointer;
+        }
     }
 `;
 
@@ -226,6 +236,7 @@ const Mainpage = ()=>{
     //and whenever user login the follows details also get stored in userfollowing
     const [posts, setPosts] = useState([]);
     const [comment, setComment] = useState('');
+    // const [likes, setLikes] = useState([]);
 
     function clearCommentInput(){
         document.querySelectorAll('.post-container').forEach(post=>{
@@ -294,6 +305,12 @@ const Mainpage = ()=>{
         thisUserDetails();
     }
 
+    async function changeHeartColor(e){
+        e.target.classList.toggle('colored-heart');
+        await updateLikes(e.target.parentNode.parentNode.id, username, e.target.id);
+        thisUserDetails();
+    }
+
     return(
         <Grid className="main-page">
             {/* <h1>Welcome {username}</h1> */}
@@ -312,7 +329,7 @@ const Mainpage = ()=>{
                                 )
                             }):<p>No comments yet..</p>}
                             </CommentSection>
-                            <p className="like-post"><span className="material-symbols-outlined">favorite</span>0 likes</p>
+                            <p className="like-post"><span className="material-symbols-outlined" id={post.post.userId} onClick={changeHeartColor}>favorite</span>{post.post.likes.length} likes</p>
                             <CommentBox className="comment-section" id={post.post.userId}>
                                 <input type="text" placeholder="your comment.." onChange={getCommentText}/>
                                 <button onClick={handleComment}>Comment</button>

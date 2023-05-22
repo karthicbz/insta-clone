@@ -25,21 +25,6 @@ const saveComments = async (commentPostId, currUser, comment, userRefId)=>{
             })
         }
     });
-    // console.log(postPosition);
-    // console.log(allUsers);
-    // allUsers.forEach(user=>{
-    //     count = 0;
-    //     user.posts.filter(post=>{
-    //         count += 1;
-    //         if(post.postId === commentPostId){
-    //             // console.log(`${post.comments.length}, post: ${count}`);
-    //             postPosition = count-1;
-    //             post.comments.forEach(comment=>{
-    //                 comments = [...comments, comment];
-    //             })
-    //         }
-    //     })
-    // })
     try{
         await setDoc(docRef, {
             posts: [...posts.slice(0, postPosition),
