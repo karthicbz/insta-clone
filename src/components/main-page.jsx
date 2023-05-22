@@ -159,8 +159,48 @@ const PostContainer = styled.div`
         font-size: 1rem;
         font-weight: 600;
     }
+
+    &>.like-post{
+        display: flex;
+        margin-left: 8px;
+        gap: 8px;
+    }
 `;
 
+const CommentBox = styled.div`
+    display: flex;
+    padding: 0 8px;
+    gap: 8px;
+
+    &>input{
+        margin-right: auto;
+        width: 100%;
+        font-size: 0.9rem;
+        padding: 5px;
+        border: none;
+        outline: none;
+    }
+
+    &>button{
+        border: none;
+        background: none;
+        color: #0786f3;
+        font-weight: 600;
+        border-radius: 8px;
+        padding: 0 4px;
+        background: rgba(208, 231, 245, 0);
+        transition: background ease-in-out 0.3s;
+    }
+
+    &>button:hover{
+        cursor: pointer;
+        background: rgba(208, 231, 245, 1);
+    }
+
+    &>button:active{
+        transform: scale(0.95);
+    }
+`;
 
 const Mainpage = ()=>{
     const params = useParams();
@@ -228,15 +268,15 @@ const Mainpage = ()=>{
             <div className="main-content">
                 {posts.sort((a,b)=>b.post.created - a.post.created).map(post=>{
                     return(
-                        <PostContainer>
+                        <PostContainer id={post.post.postId}>
                             <p className="user-name">{post.name}</p>
                             <img src={post.post.imgUrl} alt="post image"/>
                             <p className="post-desc"><span>{post.name+' '}</span>{post.post.description}</p>
-                            <button>like</button>
-                            <div>
-                                <textarea placeholder="your comment.."></textarea>
+                            <p className="like-post"><span class="material-symbols-outlined">favorite</span>0 likes</p>
+                            <CommentBox className="comment-section">
+                                <input type="text" placeholder="your comment.."/>
                                 <button>Comment</button>
-                            </div>
+                            </CommentBox>
                         </PostContainer>
                     )
                 })}
