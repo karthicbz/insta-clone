@@ -145,7 +145,7 @@ const PostContainer = styled.div`
     }
 
     &>img{
-        width: 350px;
+        width: 100%;
         height: 350px;
         align-self: center;
         border-radius: 8px;
@@ -329,7 +329,9 @@ const Mainpage = ()=>{
                                 )
                             }):<p>No comments yet..</p>}
                             </CommentSection>
-                            <p className="like-post"><span className="material-symbols-outlined" id={post.post.userId} onClick={changeHeartColor}>favorite</span>{post.post.likes.length} likes</p>
+                            <p className="like-post">{post.post.likes.includes(username)
+                            ?<span className="material-symbols-outlined colored-heart" id={post.post.userId} onClick={changeHeartColor}>favorite</span>
+                            :<span className="material-symbols-outlined" id={post.post.userId} onClick={changeHeartColor}>favorite</span>}{post.post.likes.length} likes</p>
                             <CommentBox className="comment-section" id={post.post.userId}>
                                 <input type="text" placeholder="your comment.." onChange={getCommentText}/>
                                 <button onClick={handleComment}>Comment</button>
