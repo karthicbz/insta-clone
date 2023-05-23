@@ -10,7 +10,7 @@ import saveComments from "../scripts/saveComments";
 import updateLikes from "../scripts/updateLikes";
 import Loader from "./loader";
 
-const Grid = styled.div`
+export const Grid = styled.div`
     display: grid;
     grid-template: max-content 1fr/80% 1fr;
     align-items: center;
@@ -24,7 +24,8 @@ const Grid = styled.div`
         font-family: 'Pacifico', cursive;
         align-self: center;
         padding-left: 2rem;
-        background: wheat;
+        background: #b3d1f5;
+        color: aliceblue;
         padding: 5px 0px 5px 2rem;
         position: sticky;
         top: 0;
@@ -38,10 +39,24 @@ const Grid = styled.div`
         justify-content: center;
         height: 100%;
         align-items: center;
-        background:wheat;
+        background:#b3d1f5;
         position: sticky;
         top: 0;
         z-index: 2;
+    }
+
+    &>.header-menu>a>p{
+        color: aliceblue;
+        font-weight: 600;
+        padding: 8px;
+        border-radius: 50px;
+        background: rgba(124, 184, 239, 0);
+        transition: background ease-in-out 0.2s;
+    }
+
+    &>.header-menu>a>p:hover{
+        cursor: pointer;
+        background: rgba(124, 184, 239, 1);
     }
 
     &>.header-menu>a{
@@ -50,7 +65,7 @@ const Grid = styled.div`
 
     &>.header-menu>a>span{
         font-size: 1.8rem;
-        color: black;
+        color: aliceblue;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -104,8 +119,8 @@ const Grid = styled.div`
 const FollowButton = styled.button`
     padding: 5px;
     border: none;
-    background: rgb(67, 167, 67);
-    color: white;
+    background: rgb(124, 184, 239);
+    color: aliceblue;
     border-radius: 5px;
     font-weight: 600;
     box-shadow: 0px 1px 3px 1px #cac7c7;
@@ -113,7 +128,7 @@ const FollowButton = styled.button`
 
     &:hover{
         cursor: pointer;
-        background-color: green;
+        background-color: #2694ca;
     }
 
     &:active{
@@ -136,11 +151,11 @@ const PostContainer = styled.div`
 
     &>.user-name{
         font-weight: 600;
-        background: #43a743;
+        background: rgb(124, 184, 239);
         width: max-content;
         padding: 4px;
         border-radius: 8px;
-        color: white;
+        color: aliceblue;
         margin-right: 0.8rem;
         align-self: end;
     }
@@ -153,9 +168,9 @@ const PostContainer = styled.div`
     }
 
     &>.post-desc{
-        font-size: 0.9rem;
+        font-size: 1rem;
         font-weight: 400;
-        margin-left: 0.8rem;
+        margin-left: 10px;
     }
 
     &>.post-desc>span{
@@ -165,9 +180,10 @@ const PostContainer = styled.div`
 
     &>.like-post{
         display: flex;
-        margin-left: 8px;
-        gap: 8px;
+        margin-left: 10px;
+        gap: 4px;
         align-items: center;
+        font-size: 0.95rem;
 
         &>span{
             color: #dfd6d6;
@@ -184,7 +200,7 @@ const PostContainer = styled.div`
 
 const CommentBox = styled.div`
     display: flex;
-    padding: 0 8px;
+    padding: 0 10px;
     gap: 8px;
 
     &>input{
@@ -193,6 +209,7 @@ const CommentBox = styled.div`
         font-size: 0.9rem;
         padding: 5px;
         border: none;
+        // border-radius: 50px;
         outline: none;
     }
 
@@ -231,7 +248,7 @@ const CommentSection = styled.div`
     &>p>span{
         font-weight: 600;
         color: #838080;
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 `;
 

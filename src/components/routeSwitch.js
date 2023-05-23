@@ -5,6 +5,7 @@ import LoginPage from "./login-page";
 import SignupPage from "./signUpPage";
 import Mainpage from "./main-page";
 import NewpostPage from "./newPost-page";
+import Profile from "./profile";
 
 export const LoginCheck = createContext('');
 
@@ -22,6 +23,7 @@ const RouteSwitch = ()=>{
                     <Route path="/signup" element={<SignupPage />}/>
                     <Route path="/:userRefId" element={isLoggedIn?<Mainpage />:<Navigate to="/" replace/>}/>
                     <Route path="/newpost" element={<NewpostPage/>}/>
+                    <Route path="/profile" element={<Profile/>}/>
             </Routes>
             </LoginCheck.Provider>
         </BrowserRouter>

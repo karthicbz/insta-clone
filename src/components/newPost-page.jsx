@@ -4,8 +4,9 @@ import uploadFile from "../scripts/uploadToFirebase";
 import HeaderMenu from "./headerMenu";
 import styled from "styled-components";
 import Loader from "./loader";
+import { Grid } from "./main-page";
 
-const Grid = styled.div`
+const NewPostGrid = styled(Grid)`
     display: grid;
     grid-template: max-content 1fr/80% 1fr;
     align-items: center;
@@ -13,25 +14,12 @@ const Grid = styled.div`
     width: 100%;
 
     &>p{
-        grid-column: 1/2;
-        grid-row: 1/2;
-        font-size: 2rem;
-        font-family: 'Pacifico', cursive;
-        align-self: center;
-        padding-left: 2rem;
-        background: wheat;
-        padding: 5px 0px 5px 2rem;
+        background: #b3d1f5;
+        color: aliceblue;
     }
 
     &>.header-menu{
-        grid-column: 2/3;
-        grid-row: 1/2;
-        display: flex;
-        gap: 2rem;
-        justify-content: center;
-        height: 100%;
-        align-items: center;
-        background:wheat;
+        background:#b3d1f5;
     }
 
     &>.header-menu>a{
@@ -39,12 +27,7 @@ const Grid = styled.div`
     }
 
     &>.header-menu>a>span{
-        font-size: 1.8rem;
-        color: black;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: transform ease-in-out 0.5s;
+        color: aliceblue;
     }
 
     &>.header-menu>a>span:hover{
@@ -84,6 +67,7 @@ const Grid = styled.div`
         align-items: center;
         justify-content: center;
         gap: 8px;
+        font-size:0.85rem;
     }
 
     &>.post-creator>.select-photo:hover, .post-creator>form>.create-post:hover{
@@ -104,27 +88,28 @@ const Grid = styled.div`
         flex-direction: column;
         width: 350px;
         gap: 8px;
-        margin-top: -32px;
+        margin-top: -30px;
     }
 
     &>.post-creator>form>.post-desc{
-        font-family: sans;
         padding: 8px;
         font-size: 0.9rem;
         resize: none;
+        border-radius: 8px;
     }
 
     &>.post-creator>form>.create-post{
-        padding: 8px;
+        padding: 10px;
         border-radius: 8px;
-        background-color: rgb(67, 167, 67);
+        background-color: rgb(124, 184, 239);
         border: none;
         color: white;
+        font-weight: 600;
     }
 
     .post-creator>form>.create-post:active{
         transform: scale(0.95);
-        background-color: rgb(51, 130, 51);
+        background-color: #2694ca;
     }
     `;
 
@@ -176,7 +161,7 @@ const NewpostPage = ()=>{
     }
 
     return(
-        <Grid>
+        <NewPostGrid>
             <HeaderMenu username={location.state.username} userRefId={location.state.refId}/>
             {/* <Link to={`/${location.state.refId}`}><span class="material-symbols-outlined">home</span></Link> */}
             <div className="post-creator">
@@ -190,7 +175,7 @@ const NewpostPage = ()=>{
                     <button className="create-post" onClick={uploadImage}>{(loading)?<Loader/>:'Create Post'}</button>
                 </form>
             </div>
-        </Grid>
+        </NewPostGrid>
     )
 }
 

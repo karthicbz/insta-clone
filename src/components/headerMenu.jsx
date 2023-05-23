@@ -9,7 +9,7 @@ const HeaderMenu = ({username, userRefId})=>{
             {/* <span className="material-symbols-outlined">home</span> */}
             <Link to={`/${userRefId}`}><span className="material-symbols-outlined">home</span></Link>
             <Link to={'/'}><span className="material-symbols-outlined">logout</span></Link>
-            <p>{username}</p>
+            <Link to={'/profile'} state={{refId:userRefId, username: username}}><p>{username}</p></Link>
         </div>
         </>
     );
