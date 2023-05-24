@@ -135,6 +135,23 @@ const ProfileGrid = styled(Grid)`
         }
         }
     }
+
+    @media screen and (max-width: 414px){
+        &>.profile-section{
+            grid-area: 2/1/4/3;
+        }
+
+        &>.profile-section>.profile-details>.posted-image>img{
+            width: 100px;
+            height: 100px;
+        }
+
+        &>.profile-section>.profile-details>.posted-image{
+            grid-template-rows: repeat(auto-fit, min(100px));
+            grid-template-columns: repeat(auto-fit, min(100px));
+            justify-content: center;
+        }
+    }
 `;
 
 const Profile = ()=>{
