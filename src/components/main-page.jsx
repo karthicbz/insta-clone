@@ -116,13 +116,16 @@ export const Grid = styled.div`
     }
 
     @media screen and (max-width: 414px){
+        grid-template: max-content 15% 1fr/80% 1fr;
+
         &>p{
             grid-area: 1/1/2/3;
+            font-size: 1.8rem;
         }
 
         &>.header-menu{
             grid-area: none;
-            position: absolute;
+            position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
@@ -131,6 +134,38 @@ export const Grid = styled.div`
             display: flex;
             justify-content: space-evenly;
             padding: 2px 0px;
+        }
+
+        &>.other-users{
+            // display: none;
+            grid-column: 1/3;
+            grid-row: 2/3;
+            display: flex;
+            height: 100%;
+            align-items: center;
+            overflow: scroll;
+            gap: 1rem;
+            position: unset;
+            top: unset;
+            width: 100%;
+            // margin-bottom: 8px;
+            place-self: unset;
+        }
+
+        &>.other-users>div{
+            flex-direction: column;
+        }
+
+        &>.other-users>p{
+            font-size: 1rem;
+        }
+
+        &>.main-content{
+            grid-area: 3/1/4/3;
+        }
+
+        &>.main-content>div:last-child{
+            margin-bottom: 3rem;
         }
     }
 `;
@@ -152,6 +187,10 @@ const FollowButton = styled.button`
 
     &:active{
         transform: scale(0.95);
+    }
+
+    @media screen and (max-width: 414px){
+        margin-left: unset;
     }
 `;
 
@@ -213,6 +252,14 @@ const PostContainer = styled.div`
             cursor: pointer;
             color: red;
             transform: scale(1.2);
+        }
+    }
+
+    @media screen and (max-width: 414px){
+        width: 350px;
+
+        &>img{
+            height: 300px;
         }
     }
 `;

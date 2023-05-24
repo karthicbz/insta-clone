@@ -184,7 +184,7 @@ const NewpostPage = ()=>{
             <div className="post-creator">
                 {(imageUrl === '')?<span className="material-symbols-outlined post-preview">image</span>
                                 :<img src={imageUrl} alt="post image" className="post-preview"/>}
-                <label htmlFor="myFile" className="select-photo"><span class="material-symbols-outlined">add_a_photo</span>Select Photo</label>
+                <label htmlFor="myFile" className="select-photo"><span className="material-symbols-outlined">add_a_photo</span>Select Photo</label>
                 <input type="file" id="myFile" name="myFile" className="myFile" onChange={getImageBlob}/>
                 <form>
                     <textarea rows="5" className="post-desc" placeholder="say something about your post..."
