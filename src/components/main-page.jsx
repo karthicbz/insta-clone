@@ -114,6 +114,25 @@ export const Grid = styled.div`
         align-items: center;
         width: 200px;
     }
+
+    @media screen and (max-width: 414px){
+        &>p{
+            grid-area: 1/1/2/3;
+        }
+
+        &>.header-menu{
+            grid-area: none;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: unset;
+            height: unset;
+            display: flex;
+            justify-content: space-evenly;
+            padding: 2px 0px;
+        }
+    }
 `;
 
 const FollowButton = styled.button`

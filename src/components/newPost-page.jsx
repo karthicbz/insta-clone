@@ -111,6 +111,23 @@ const NewPostGrid = styled(Grid)`
         transform: scale(0.95);
         background-color: #2694ca;
     }
+
+    @media screen and (max-width: 414px){
+
+        &>.post-creator>.post-preview{
+            font-size: 250px;
+            width: 250px;
+            height: 250px;
+        }
+
+        &>.post-creator>.select-photo{
+            width: 250px;
+        }
+
+        &>.post-creator>form{
+            width: 250px;
+        }
+    }
     `;
 
 const NewpostPage = ()=>{
