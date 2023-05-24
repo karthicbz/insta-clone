@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import { createContext, useState } from "react";
 // import App from "../App";
 import LoginPage from "./login-page";
@@ -16,7 +16,7 @@ const RouteSwitch = ()=>{
     }
 
     return(
-        <BrowserRouter>
+        <HashRouter>
             <LoginCheck.Provider value={changeLoginStatus}>
             <Routes>
                     <Route path="/" element={<LoginPage />}/>
@@ -26,7 +26,7 @@ const RouteSwitch = ()=>{
                     <Route path="/profile" element={<Profile/>}/>
             </Routes>
             </LoginCheck.Provider>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
 
