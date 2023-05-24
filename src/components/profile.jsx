@@ -97,6 +97,7 @@ const ProfileGrid = styled(Grid)`
         // justify-content: center;
         align-content: start;
         gap: 1rem;
+        display: none;
 
     }
 
@@ -185,31 +186,31 @@ const Profile = ()=>{
                         <p className="menu-following" onClick={handleClick}>Following<br /><span>{profileDetails.following.length}</span></p>
                     </div>
                     <div className="posted-image">
-                        {(profileDetails.length !== 0)?profileDetails.posts.map(post=>{
+                        {(profileDetails.posts.length !== 0)?profileDetails.posts.map(post=>{
                             return(
                                 <img src={post.imgUrl} alt="posted image"/>
                             )
-                        }):<Loader />}
+                        }):<Loader color="gray"/>}
                     </div>
                     <div className="followers">
-                        {(profileDetails.length !== 0)?profileDetails.followers.map(post=>{
+                        {(profileDetails.followers.length !== 0)?profileDetails.followers.map(post=>{
                             return(
                                 <div>
                                 <p>{post}</p>
                                 <button>Follow</button>
                                 </div>
                             )
-                        }):<Loader/>}
+                        }):<Loader color="gray"/>}
                     </div>
                     <div className="following">
-                        {(profileDetails.length !== 0)?profileDetails.following.map(post=>{
+                        {(profileDetails.following.length !== 0)?profileDetails.following.map(post=>{
                             return(
                                 <div>
                                     <p>{post}</p>
                                     <button>Unfollow</button>
                                 </div>
                             )
-                        }):<Loader/>}
+                        }):<Loader color="gray"/>}
                     </div>
                 </div>
             </div>

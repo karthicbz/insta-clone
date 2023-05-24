@@ -167,3 +167,27 @@ html, body{
   font-size: 0.8rem;
   /* font-weight: 600; */
 }
+
+@media screen and (max-width: 414px){
+  .phones-section{
+    display: none;
+  }
+
+  .login-main{
+    padding: 0px, 1rem;
+  }
+
+  .login-main>.header{
+    height: 130px;
+  }
+
+  .login-main>.header>p{
+    font-size: 2.5rem;
+  }
+
+  .login-main>.main>.user-id, .login-main>.main>.user-pass, .login-main>.main>.login-button{
+    width: 215px;
+    height: 1.9rem;
+    align-self: center;
+  }
+}
