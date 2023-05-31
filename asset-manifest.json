@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/insta-clone/static/css/main.ff6f67b4.css",
-    "main.js": "/insta-clone/static/js/main.a2695d5b.js",
+    "main.js": "/insta-clone/static/js/main.14c85748.js",
     "static/js/787.fc1ce4eb.chunk.js": "/insta-clone/static/js/787.fc1ce4eb.chunk.js",
     "static/media/home-phones.png": "/insta-clone/static/media/home-phones.f4b69b981c389b538d0e.png",
     "index.html": "/insta-clone/index.html",
     "main.ff6f67b4.css.map": "/insta-clone/static/css/main.ff6f67b4.css.map",
-    "main.a2695d5b.js.map": "/insta-clone/static/js/main.a2695d5b.js.map",
+    "main.14c85748.js.map": "/insta-clone/static/js/main.14c85748.js.map",
     "787.fc1ce4eb.chunk.js.map": "/insta-clone/static/js/787.fc1ce4eb.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ff6f67b4.css",
-    "static/js/main.a2695d5b.js"
+    "static/js/main.14c85748.js"
   ]
 }
