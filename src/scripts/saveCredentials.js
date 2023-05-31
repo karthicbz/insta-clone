@@ -1,5 +1,6 @@
 import app from "./firebaseConfig";
 import {getFirestore, collection, addDoc, setDoc, doc} from 'firebase/firestore/lite';
+import hashCode from "./createHash";
 
 const db = getFirestore(app);
 
@@ -10,7 +11,7 @@ async function saveUserCredentials(email, fullname, username, password){
             email: email,
             fullname: fullname,
             username: username,
-            password: password,
+            password: hashCode(password),
             posts: [],
             following: [],
             followers: [],

@@ -1,10 +1,12 @@
 import app from "./firebaseConfig";
 import {getFirestore, collection, getDocs} from 'firebase/firestore/lite';
+import hashCode from "./createHash";
 
 const db = getFirestore(app);
 
 async function checkCredentials(userId, password){
     const validData = {userId: false, password: false, userRef: ''};
+    const hashedPassword = hashCode(password);
     try{
     const details = await getDocs(collection(db, 'users'));
     details.forEach(detail=>{
@@ -16,11 +18,11 @@ async function checkCredentials(userId, password){
             validData.userId = true;
         }
 
-        if(password === detail.data().password){
+        if(password === detail.data().password || hashedPassword === detail.data().password){
             validData.password = true;
         }
 
-        if(password === detail.data().password && userId === detail.data().email || password === detail.data().password && userId === detail.data().username){
+        if((password === detail.data().password || hashedPassword === detail.data().password) && userId === detail.data().email || (password === detail.data().password || hashedPassword === detail.data().password) && userId === detail.data().username){
             validData.userRef = detail.id;
         }
     });

@@ -5,7 +5,7 @@ import getSingleDoc from "./getSingleUser";
 const db = getFirestore(app);
 
 const saveFollowers = async (followerName, userRef)=>{
-    console.log(followerName, userRef);
+    // console.log(followerName, userRef);
     let followers = [];
     const docRef = doc(db, 'users', userRef);
     const followersList = await getSingleDoc(userRef);
